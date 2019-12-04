@@ -1,0 +1,39 @@
+{
+
+	"workflow": {
+		"module": "events"
+	},
+	"system": {
+		"module": "lsf",
+		"name": "pyper",
+		"proj": "GEO111",
+		"ntasks": 12,
+		"node_size": 6,
+		"walltime": "2:00",
+		"modules": "gcc/4.8.5 hdf5/1.8.18 cuda",
+		"pre_exec": [
+			". /ccs/home/ccui/anaconda3/etc/profile.d/conda.sh",
+			"conda activate asdf",
+			"export CUPY_CACHE_DIR=/gpfs/alpine/proj-shared/geo111/ccui/.cupy"
+		]
+	},
+	"solver": {
+		"module": "specfem3d_globe",
+		"directory": "/gpfs/alpine/proj-shared/geo111/ccui/specfem3d_scratch",
+		"duration": 1400.0,
+		"components": ["N", "E", "Z"],
+		"vtk_quality": 1,
+		"ntasks": 6,
+		"adios": true
+	},
+	"kernel": {
+		"module": "ortho2",
+		"misfit": "phase_se",
+		"kernels": ["alpha"],
+		"random_frequency": false,
+		"steady_state": 540.0,
+		"integrate_duration": 320,
+		"period_min": 90.0,
+		"period_max": 200.0
+	}
+}

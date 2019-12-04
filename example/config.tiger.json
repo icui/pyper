@@ -1,0 +1,38 @@
+{
+
+	"workflow": {
+		"module": "events"
+	},
+	"system": {
+		"module": "slurm",
+		"name": "pyper",
+		"ntasks": 12,
+		"node_size": 4,
+		"walltime": "01:00:00",
+		"mem": "40000",
+		"modules": "cudatoolkit openmpi/gcc/3.1.4/64 openmpi/gcc/3.1.4/64 hdf5/gcc/openmpi-3.1.4/1.10.5",
+		"pre_exec": [
+			". /home/ccui/anaconda3/etc/profile.d/conda.sh",
+			"conda activate obspy"
+		]
+	},
+	"solver": {
+		"module": "specfem3d_globe",
+		"directory": "/home/ccui/specfem3d_globe",
+		"duration": 400.0,
+		"components": ["N", "E", "Z"],
+		"vtk_quality": 1,
+		"ntasks": 6,
+		"adios": false
+	},
+	"kernel": {
+		"module": "ortho2",
+		"misfit": "phase_se",
+		"kernels": ["alpha"],
+		"random_frequency": false,
+		"steady_state": 540.0,
+		"integrate_duration": 320,
+		"period_min": 90.0,
+		"period_max": 200.0
+	}
+}
