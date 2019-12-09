@@ -1,0 +1,10 @@
+{
+	"system": {
+		"module": "System",
+		"ntasks": 1,
+		"node_size": 1
+	},
+	"solver": {
+		"module": "Solver"
+	}
+}

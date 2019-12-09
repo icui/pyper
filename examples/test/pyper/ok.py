@@ -1,0 +1,2 @@
+def xxx():
+	print('yyy')
