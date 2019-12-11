@@ -1,3 +1,3 @@
 # Pyper
 
-[https://icui.github.io/pyper/html/index.html](Documentation)
+[Documentation](https://icui.github.io/pyper/html/index.html)
