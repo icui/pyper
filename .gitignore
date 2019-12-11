@@ -4,7 +4,3 @@
 
 examples/*/output
 examples/*/scratch
-docs/_*
-!docs/html
-docs/scratch
-docs/output
