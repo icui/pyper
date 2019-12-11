@@ -1,0 +1,9 @@
+*.pyc
+*.swp
+.vscode
+
+examples/*/output
+examples/*/scratch
+docs/_*
+docs/scratch
+docs/output
