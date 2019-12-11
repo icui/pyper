@@ -189,18 +189,63 @@
 </dd></dl>
 
 <dl class="method">
+<dt id="pyper.modules.solver.specfem3d_globe.Specfem3D_Globe._mesh">
+<code class="sig-name descname">_mesh</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyper.modules.solver.specfem3d_globe.Specfem3D_Globe._mesh" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run mesher.</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="pyper.modules.solver.specfem3d_globe.Specfem3D_Globe._setpar">
-<code class="sig-name descname">_setpar</code><span class="sig-paren">(</span><em class="sig-param">key</em>, <em class="sig-param">val</em>, <em class="sig-param">src='base'</em><span class="sig-paren">)</span><a class="headerlink" href="#pyper.modules.solver.specfem3d_globe.Specfem3D_Globe._setpar" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">_setpar</code><span class="sig-paren">(</span><em class="sig-param">key: str, val: Union[str, int, float], src: str = 'base'</em><span class="sig-paren">)</span><a class="headerlink" href="#pyper.modules.solver.specfem3d_globe.Specfem3D_Globe._setpar" title="Permalink to this definition">¶</a></dt>
 <dd><p>Modify DATA/Par_file entries in specfem3d_globe.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>{</strong><strong>[</strong><strong>type</strong><strong>]</strong><strong>} -- name of the entry</strong> (<em>key</em>) – </p></li>
-<li><p><strong>{</strong><strong>[</strong><strong>type</strong><strong>]</strong><strong>} -- value of the entry</strong> (<em>val</em>) – </p></li>
+<li><p><strong>{str} -- name of the entry</strong> (<em>key</em>) – </p></li>
+<li><p><strong>{Union</strong><strong>[</strong><strong>str</strong><strong>, </strong><strong>int</strong><strong>, </strong><strong>float</strong><strong>]</strong><strong>} -- value of the entry</strong> (<em>val</em>) – </p></li>
 </ul>
 </dd>
 <dt class="field-even">Keyword Arguments</dt>
 <dd class="field-even"><p><strong>{str} -- modfiy Par_file for the workspace of a specefic event</strong><strong> (</strong><strong>default</strong> (<em>src</em>) – {‘base’})</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyper.modules.solver.specfem3d_globe.Specfem3D_Globe.adjoint">
+<code class="sig-name descname">adjoint</code><span class="sig-paren">(</span><em class="sig-param">src</em><span class="sig-paren">)</span><a class="headerlink" href="#pyper.modules.solver.specfem3d_globe.Specfem3D_Globe.adjoint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run adjoint simulation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>{str} -- event name</strong> (<em>src</em>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyper.modules.solver.specfem3d_globe.Specfem3D_Globe.export_kernel">
+<code class="sig-name descname">export_kernel</code><span class="sig-paren">(</span><em class="sig-param">kernel</em>, <em class="sig-param">src='kernels_sum'</em><span class="sig-paren">)</span><a class="headerlink" href="#pyper.modules.solver.specfem3d_globe.Specfem3D_Globe.export_kernel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Export kernels to a generic format.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>{str} -- kernel name to be exported</strong> (<em>kernel</em>) – </p>
+</dd>
+<dt class="field-even">Keyword Arguments</dt>
+<dd class="field-even"><p><strong>{str} -- event name of the kernel</strong><strong> (</strong><strong>default</strong> (<em>src</em>) – {‘kernels_sum’})</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyper.modules.solver.specfem3d_globe.Specfem3D_Globe.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param">src</em>, <em class="sig-param">save_forward=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pyper.modules.solver.specfem3d_globe.Specfem3D_Globe.forward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run forward simulation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>{str} -- event name</strong> (<em>src</em>) – </p>
+</dd>
+<dt class="field-even">Keyword Arguments</dt>
+<dd class="field-even"><p><strong>{bool} -- whether to save entire forward wavefield for adjoint calculation</strong><strong> (</strong><strong>default</strong> (<em>save_wavefield</em>) – {False})</p>
 </dd>
 </dl>
 </dd></dl>
@@ -237,6 +282,17 @@
 <dt id="pyper.modules.solver.specfem3d_globe.Specfem3D_Globe.setup">
 <code class="sig-name descname">setup</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyper.modules.solver.specfem3d_globe.Specfem3D_Globe.setup" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create solver workspace and link binaries.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyper.modules.solver.specfem3d_globe.Specfem3D_Globe.sum_kernels">
+<code class="sig-name descname">sum_kernels</code><span class="sig-paren">(</span><em class="sig-param">events</em><span class="sig-paren">)</span><a class="headerlink" href="#pyper.modules.solver.specfem3d_globe.Specfem3D_Globe.sum_kernels" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sum kernels of different events.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>{List</strong><strong>[</strong><strong>str</strong><strong>]</strong><strong>} -- events to be summed</strong> (<em>events</em>) – </p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>

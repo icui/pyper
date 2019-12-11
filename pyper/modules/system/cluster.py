@@ -3,39 +3,37 @@ from time import time
 from datetime import timedelta
 from pyper.modules.system.system import System
 from pyper.shell import write, call, echo
+from abc import abstractmethod
 from typing import List, Callable, Tuple, Union
 
 class Cluster(System):
 	""" base class for cluster based systems
 	"""
+	@abstractmethod
 	def _jobscript(self, script: str) -> str:
 		""" Create job script.
 		
 		Arguments:
 			script {str} -- main content of job script
 		
-		Raises:
-			NotImplementedError: abstract method defined by child class
-		
 		Returns:
 			str -- full job script content
 		"""
-		raise NotImplementedError
+		pass
 	
+	@abstractmethod
 	def _jobexec(self, src: str) -> str:
 		""" Command for job submission.
 		
 		Arguments:
 			src {str} -- path of job script
 		
-		Raises:
-			NotImplementedError: abstract method defined by child class
-		
 		Returns:
 			str -- job submission command
 		"""
-		raise NotImplementedError
+		pass
 
+	@abstractmethod
 	def _mpiexec(self, cmd: str, nnodes: int, nprocs: int) -> str:
 		""" Command for running tasks with multiple processors
 		
@@ -44,13 +42,10 @@ class Cluster(System):
 			nnodes {int} -- number of nodes for the command
 			nprocs {int} -- total number of processors for the command
 		
-		Raises:
-			NotImplementedError: abstract method defined by child class
-		
 		Returns:
 			str -- task execution command
 		"""
-		raise NotImplementedError
+		pass
 	
 	def _execute(self):
 		""" Main function called by job script,
@@ -137,20 +132,12 @@ class Cluster(System):
 		echo(' - task %s complete (%s)' % (idx, elapsed))
 	
 	def mpirun(self, tasks: Union[List[Tuple[str, str, int]], Tuple[str, str, int]]):
-		""" Run mpi tasks.
-		
-		Arguments:
-			tasks {Union[List[Tuple[str, str, int]], Tuple[str, str, int]]} -- path, command and number of processors
-		
-		Returns:
-			int -- exit code of the system call
-		"""
 		cmds = ''
 		if type(tasks) is tuple:
 			tasks = [tasks]
 		
 		for (cwd, cmd, nprocs) in tasks:
-			if type(nprocs) is int:
+			if nprocs > 0:
 				nnodes = int(np.ceil(nprocs / self['node_size']))
 				cmds += 'cd %s && %s & ' % (cwd, self._mpiexec(cmd, nnodes, nprocs))
 			
@@ -160,37 +147,38 @@ class Cluster(System):
 		return call(cmds + 'wait')
 
 	def submit(self, workflow: Callable):
-		""" Submit a job script.
-		
-		Arguments:
-			workflow {Callable} -- tasks to be executed in the job script
-		"""
 		# avoid duplicate submission
-		if self['submitted'] or not hasattr(self, '_stages'):
+		if self['submitted']:
 			return
 		
-		workflow()
+		# create workflow
+		if hasattr(self, '_stages'):
+			workflow()
 
-		if len(self._stages[-1]) == 0:
-			self._stages.pop()
+			if len(self._stages[-1]) == 0:
+				self._stages.pop()
 
-		self.update({'submitted': True, 'stage': 0, 'stages': self._stages, 'finished': []})
+			self.update({'submitted': True, 'stage': 0, 'stages': self._stages, 'finished': []})
 
-		# job script header
-		script = ''
+			# job script header
+			script = ''
 
-		# command before workflow execution
-		if 'pre_exec' in self:
-			script += '\n%s\n' % '\n'.join(self['pre_exec'])
+			# command before workflow execution
+			if 'pre_exec' in self:
+				script += '\n%s\n' % '\n'.join(self['pre_exec'])
+			
+			script += '\npython -c "from pyper import system; system._module._execute()"\n'
+
+			# command before workflow execution
+			if 'post_exec' in self:
+				script += '\n%s\n' % '\n'.join(self['post_exec'])
+
+			# write job script
+			write('scratch/system/job.bash', self._jobscript(script))
 		
-		script += '\npython -c "from pyper import system; system._module._execute()"\n'
-
-		# command before workflow execution
-		if 'post_exec' in self:
-			script += '\n%s\n' % '\n'.join(self['post_exec'])
-
-		# write job script
-		write('scratch/system/job.bash', self._jobscript(script))
+		else:
+			echo('------------')
+			self['submitted'] = True
 
 		# submit job script
 		call(self._jobexec('scratch/system/job.bash'))

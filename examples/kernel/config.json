@@ -13,6 +13,16 @@
 		"duration": 120.0,
 		"components": ["N", "E", "Z"],
 		"ntasks": 6,
-		"adios": false
+		"adios": false,
+		"vtk_quality": 1
+	},
+	"kernel": {
+		"module": "adjoint",
+		"kernels": ["alpha"],
+		"period_min": 90.0,
+		"period_max": 200.0,
+		"misfit": "waveform",
+		"preprocess": "bandpass",
+		"postprocess": "sum"
 	}
 }

@@ -1,9 +1,13 @@
 from pyper.module import load
 from pyper.modules.solver.solver import Solver
+from pyper.system import stage, task
 from typing import List, Optional
 
 _module: Solver = load('solver')
 
+events: List[str] = _module['events']
+
+@task()
 def forward(src: str, save_wavefield: bool = False):
 	""" Run forward simulation.
 	
@@ -15,6 +19,7 @@ def forward(src: str, save_wavefield: bool = False):
 	"""
 	_module.forward(src, save_wavefield)
 
+@task()
 def adjoint(src: str):
 	""" Run adjoint simulation.
 	
@@ -23,6 +28,7 @@ def adjoint(src: str):
 	"""
 	_module.adjoint(src)
 
+@stage()
 def sum_kernels(events: List[str]):
 	""" Sum kernels of different events.
 	
@@ -31,6 +37,7 @@ def sum_kernels(events: List[str]):
 	"""
 	_module.sum_kernels(events)
 
+@stage()
 def export_kernel(kernel: str, src: str = 'kernels_sum'):
 	""" Export kernels to a generic format.
 	

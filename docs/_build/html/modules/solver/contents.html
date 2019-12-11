@@ -168,6 +168,45 @@
 <em class="property">class </em><code class="sig-prename descclassname">pyper.modules.solver.solver.</code><code class="sig-name descname">Solver</code><span class="sig-paren">(</span><em class="sig-param">section: str</em><span class="sig-paren">)</span><a class="headerlink" href="#pyper.modules.solver.solver.Solver" title="Permalink to this definition">¶</a></dt>
 <dd><p>Base solver class.</p>
 <dl class="method">
+<dt id="pyper.modules.solver.solver.Solver.adjoint">
+<em class="property">abstract </em><code class="sig-name descname">adjoint</code><span class="sig-paren">(</span><em class="sig-param">src: str</em><span class="sig-paren">)</span><a class="headerlink" href="#pyper.modules.solver.solver.Solver.adjoint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run adjoint simulation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>{str} -- event name</strong> (<em>src</em>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyper.modules.solver.solver.Solver.export_kernel">
+<em class="property">abstract </em><code class="sig-name descname">export_kernel</code><span class="sig-paren">(</span><em class="sig-param">kernel: str</em>, <em class="sig-param">src: str = 'kernels_sum'</em><span class="sig-paren">)</span><a class="headerlink" href="#pyper.modules.solver.solver.Solver.export_kernel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Export kernels to a generic format.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>{str} -- kernel name to be exported</strong> (<em>kernel</em>) – </p>
+</dd>
+<dt class="field-even">Keyword Arguments</dt>
+<dd class="field-even"><p><strong>{str} -- event name of the kernel</strong><strong> (</strong><strong>default</strong> (<em>src</em>) – {‘kernels_sum’})</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyper.modules.solver.solver.Solver.forward">
+<em class="property">abstract </em><code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param">src: str</em>, <em class="sig-param">save_wavefield: bool = False</em><span class="sig-paren">)</span><a class="headerlink" href="#pyper.modules.solver.solver.Solver.forward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run forward simulation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>{str} -- event name</strong> (<em>src</em>) – </p>
+</dd>
+<dt class="field-even">Keyword Arguments</dt>
+<dd class="field-even"><p><strong>{bool} -- whether to save entire forward wavefield for adjoint calculation</strong><strong> (</strong><strong>default</strong> (<em>save_wavefield</em>) – {False})</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
 <dt id="pyper.modules.solver.solver.Solver.set_duration">
 <em class="property">abstract </em><code class="sig-name descname">set_duration</code><span class="sig-paren">(</span><em class="sig-param">src: str</em>, <em class="sig-param">duration: float</em><span class="sig-paren">)</span><a class="headerlink" href="#pyper.modules.solver.solver.Solver.set_duration" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set duration of the simulation.</p>
@@ -191,6 +230,17 @@
 </dd>
 <dt class="field-even">Keyword Arguments</dt>
 <dd class="field-even"><p><strong>{Optional</strong><strong>[</strong><strong>float</strong><strong>]</strong><strong>} -- set the time for the simulation to reach steady state</strong><strong> (</strong><strong>default</strong> (<em>steady_state</em>) – {None})</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyper.modules.solver.solver.Solver.sum_kernels">
+<em class="property">abstract </em><code class="sig-name descname">sum_kernels</code><span class="sig-paren">(</span><em class="sig-param">events: List[str]</em><span class="sig-paren">)</span><a class="headerlink" href="#pyper.modules.solver.solver.Solver.sum_kernels" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sum kernels of different events.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>{List</strong><strong>[</strong><strong>str</strong><strong>]</strong><strong>} -- events to be summed</strong> (<em>events</em>) – </p>
 </dd>
 </dl>
 </dd></dl>

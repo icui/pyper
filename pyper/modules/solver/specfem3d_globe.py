@@ -3,19 +3,28 @@ import numpy as np
 from os.path import isdir
 from glob import glob
 from pyper.modules.solver.solver import Solver
-from pyper.system import stage, task, mpirun
+from pyper.system import stage, mpirun
 from pyper.shell import call, mkdir, cp, rm, mv, write, exists, ln
-from typing import List
+from typing import List, Union
+
+@stage()
+def _mesh(ntasks: int, path: str):
+	""" Run mesher
+	
+	Arguments:
+		ntasks {int} -- number of processors for the mesher
+		path {str} -- path of specfem3d_globe
+	"""
 
 class Specfem3D_Globe(Solver):
 	""" Specfem3D_Globe solver
 	"""
-	def _setpar(self, key, val, src='base'):
+	def _setpar(self, key: str, val: Union[str, int, float], src: str = 'base'):
 		""" Modify DATA/Par_file entries in specfem3d_globe.
 		
 		Arguments:
-			key {[type]} -- name of the entry
-			val {[type]} -- value of the entry
+			key {str} -- name of the entry
+			val {Union[str, int, float]} -- value of the entry
 		
 		Keyword Arguments:
 			src {str} -- modfiy Par_file for the workspace of a specefic event (default: {'base'})
@@ -57,12 +66,12 @@ class Specfem3D_Globe(Solver):
 			print('waiting for %s compilation' % bin_file)
 
 			# backup solver Par_file
-			bak_file = self['directory'] + '/DATA/Par_file.pyper_bak'
+			bak_file = self['path'] + '/DATA/Par_file.pyper_bak'
 			if not exists(bak_file):
-				mv(self['directory'] + '/DATA/Par_file', bak_file, sudo=True)
+				mv(self['path'] + '/DATA/Par_file', bak_file, sudo=True)
 
 			# copy Par_file for compilation
-			cp('scratch/solver/base/DATA/Par_file', self['directory'] + '/DATA', sudo=True)
+			cp('scratch/solver/base/DATA/Par_file', self['path'] + '/DATA', sudo=True)
 
 			# clear current pipeline
 			rm('scratch')
@@ -79,7 +88,6 @@ class Specfem3D_Globe(Solver):
 		cp('scratch/solver/base', 'scratch/solver/%s' % src)
 		cp('scratch/events/%s' % src, 'scratch/solver/%s/DATA/CMTSOLUTION' % src)
 	
-	@stage()
 	def _mesh(self):
 		""" Run mesher.
 		"""
@@ -87,12 +95,12 @@ class Specfem3D_Globe(Solver):
 		mpirun(('scratch/solver/base', './bin/xmeshfem3D', self['ntasks']))
 
 		# move mesh to solver directory for future runs
-		rm(self['directory'] + '/DATABASES_MPI/*', sudo=True)
-		mv('scratch/solver/base/DATABASES_MPI/*', self['directory'] + '/DATABASES_MPI', sudo=True)
+		rm(self['path'] + '/DATABASES_MPI/*', sudo=True)
+		mv('scratch/solver/base/DATABASES_MPI/*', self['path'] + '/DATABASES_MPI', sudo=True)
 
 		# copy addressing.txt and link mesh files
-		cp('scratch/solver/base/OUTPUT_FILES/addressing.txt', self['directory'] + '/OUTPUT_FILES', sudo=True)
-		ln(self['directory'] + '/DATABASES_MPI/*', 'scratch/solver/base/DATABASES_MPI')
+		cp('scratch/solver/base/OUTPUT_FILES/addressing.txt', self['path'] + '/OUTPUT_FILES', sudo=True)
+		ln(self['path'] + '/DATABASES_MPI/*', 'scratch/solver/base/DATABASES_MPI')
 	
 	def setup(self):
 		""" Create solver workspace and link binaries.
@@ -105,7 +113,7 @@ class Specfem3D_Globe(Solver):
 		mkdir('scratch/solver/base/DATA')
 
 		# link binaries
-		ln(self['directory'] + '/bin', 'scratch/solver/base')
+		ln(self['path'] + '/bin', 'scratch/solver/base')
 		
 		# event and station list
 		events: List[str] = []
@@ -126,7 +134,7 @@ class Specfem3D_Globe(Solver):
 		self.update({'events': events, 'stations': stations})
 
 		# link models
-		for model_dir in glob(self['directory'] + '/DATA/*'):
+		for model_dir in glob(self['path'] + '/DATA/*'):
 			if isdir(model_dir):
 				ln(model_dir, 'scratch/solver/base/DATA')
 		
@@ -153,7 +161,7 @@ class Specfem3D_Globe(Solver):
 		mkdir('output/stf')
 
 		# restore original solver Par_file
-		bak_file: str = self['directory'] + '/DATA/Par_file.pyper_bak'
+		bak_file: str = self['path'] + '/DATA/Par_file.pyper_bak'
 		if exists(bak_file):
 			mv(bak_file, bak_file[0:-10], sudo=True)
 
@@ -170,24 +178,23 @@ class Specfem3D_Globe(Solver):
 		
 		# call mesher if necessary
 		if not exists('scratch/solver/base/OUTPUT_FILES/addressing.txt'):
-			addr_file: str = self['directory'] + '/OUTPUT_FILES/addressing.txt'
+			addr_file: str = self['path'] + '/OUTPUT_FILES/addressing.txt'
 			if exists(addr_file):
 				# use existing mesh
 				ln(addr_file, 'scratch/solver/base/OUTPUT_FILES')
-				ln(self['directory'] + '/DATABASES_MPI/*', 'scratch/solver/base/DATABASES_MPI')
+				ln(self['path'] + '/DATABASES_MPI/*', 'scratch/solver/base/DATABASES_MPI')
 			
 			else:
 				# check and call mesher
 				self._check_binary('xmeshfem3D')
-				self._mesh()
+				_mesh(self['ntasks'], self['path'])
 		
 		# link values_from_mesher.h
 		if not exists('scratch/solver/base/OUTPUT_FILES/values_from_mesher.h'):
-			mesher_file = self['directory'] + '/OUTPUT_FILES/values_from_mesher.h'
+			mesher_file = self['path'] + '/OUTPUT_FILES/values_from_mesher.h'
 			if exists(mesher_file):
 				ln(mesher_file, 'scratch/solver/base/OUTPUT_FILES')
 	
-	@task()
 	def forward(self, src, save_forward=False):
 		# create working directory
 		self._create_workspace(src)
@@ -207,7 +214,6 @@ class Specfem3D_Globe(Solver):
 			stf_idx = stf_file[53:]
 			mv(stf_file, 'output/stf/%s.stf%s' % (src, stf_idx))
 	
-	@task()
 	def adjoint(self, src):
 		# copy adjoint sources
 		cp('output/adjoint/%s.adjoint.h5' % src, 'scratch/solver/%s/SEM/adjoint.h5' % src)
@@ -222,7 +228,6 @@ class Specfem3D_Globe(Solver):
 		# export kernels
 		mv('scratch/solver/%s/OUTPUT_FILES/kernels.bp' % src, 'output/kernel/%s.bp' % src)
 
-	@stage()
 	def sum_kernels(self, events):
 		# create working directory
 		self._create_workspace('kernels_sum')
@@ -254,7 +259,6 @@ class Specfem3D_Globe(Solver):
 			# skip sum for 1 event
 			cp('output/kernel/%s.bp' % events[0], 'output/kernel/kernels_sum.bp')
 
-	@task()
 	def export_kernel(self, kernel, src='kernels_sum'):
 		# temp location for exporting
 		kernel_file = 'scratch/solver/%s/kernel_vtk.bp' % src

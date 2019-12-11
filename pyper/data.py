@@ -40,7 +40,7 @@ class Data():
 			key {str} -- name of the entry
 		
 		Returns:
-			[type] -- value of the entry
+			Any -- value of the entry
 		"""
 		return _cache[self._section][key]
 	
@@ -69,7 +69,7 @@ class Data():
 			key {str} -- name of the entry
 		
 		Returns:
-			[type] -- Whether self contains an entry
+			bool -- Whether self contains an entry
 		"""
 		return key in _cache[self._section]
 	

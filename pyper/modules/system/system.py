@@ -1,8 +1,9 @@
-import os #from here test parameters & references for doc string
+import inspect
 import numpy as np
 from pyper.module import Module
 from pyper.shell import write, mkdir
 from typing import List, Tuple, Union, Callable, Any
+from abc import abstractmethod
 
 class System(Module):
 	""" Base system class.
@@ -18,7 +19,7 @@ class System(Module):
 		self.update({
 			# whether current process is a running task
 			'running': False,
-			# avoid duplicate submission
+			# current job is submitted (to avoid duplicate submission)
 			'submitted': False,
 			# number of nodes
 			'nnodes': int(np.ceil(self['ntasks'] / self['node_size']))
@@ -84,13 +85,13 @@ class System(Module):
 
 		# deal with tasks added in main script
 		if module == '__main__':
-			print('@(main)', __file__)
-			module = __file__.split('.')[0]
+			module = inspect.getmodule(func).__file__.split('.')[0]
 		
 		# save task script
 		task_file = self.task_file(len(self._stages) - 1, len(self._stages[-1]) - 1)
 		write(task_file, 'import pyper.module\nfrom %s import %s\n%s(%s)' % (module, name, name, str(list(args))[1: -1]))
 	
+	@abstractmethod
 	def mpirun(self, tasks: Union[List[Tuple[str, str, int]], Tuple[str, str, int]]) -> int:
 		""" Run mpi tasks.
 		
@@ -99,19 +100,14 @@ class System(Module):
 		
 		Returns:
 			int -- exit code of the system call
-		
-		Raises:
-			NotImplementedError: abstract method defined by child class
 		"""
-		raise NotImplementedError
+		pass
 	
+	@abstractmethod
 	def submit(self, workflow: Callable):
 		""" Submit a job script.
 		
 		Arguments:
 			workflow {Callable} -- tasks to be executed in the job script
-		
-		Raises:
-			NotImplementedError: abstract method defined by child class
 		"""
-		raise NotImplementedError
+		pass

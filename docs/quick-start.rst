@@ -3,12 +3,13 @@ Quick start
 
 Dependencies
 ----------------
-Pyper is still in early development stage, which means that it is pretty picky about the environment. Future versions of pyper will provide alternative choices to parallel hdf5, pyasdf, cupy and specfem3d_globe.
+Pyper is still in early development stage, so it is currently pretty picky about the environment. Future versions of pyper will provide alternative choices to parallel hdf5, pyasdf, cupy and specfem3d_globe.
 
 - Python 3.5 or later
 - `Obspy <https://github.com/obspy/obspy/>`_
 - `Parallel h5py <http://docs.h5py.org/en/stable/build.html#building-against-parallel-hdf5/>`_
 - `Pyasdf <https://github.com/SeismicData/pyasdf/>`_
+- `Adios <https://www.olcf.ornl.gov/center-projects/adios/>`_
 - `CuPy <https://cupy.chainer.org/>`_
 - `Specfem3D Globe <https://github.com/geodynamics/specfem3d_globe/>`_
 

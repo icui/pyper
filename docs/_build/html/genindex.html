@@ -151,6 +151,9 @@
  <a href="#_"><strong>_</strong></a>
  | <a href="#A"><strong>A</strong></a>
  | <a href="#C"><strong>C</strong></a>
+ | <a href="#E"><strong>E</strong></a>
+ | <a href="#F"><strong>F</strong></a>
+ | <a href="#L"><strong>L</strong></a>
  | <a href="#M"><strong>M</strong></a>
  | <a href="#P"><strong>P</strong></a>
  | <a href="#S"><strong>S</strong></a>
@@ -164,14 +167,38 @@
 </li>
       <li><a href="modules/solver/specfem3d_globe.html#pyper.modules.solver.specfem3d_globe.Specfem3D_Globe._create_workspace">_create_workspace() (pyper.modules.solver.specfem3d_globe.Specfem3D_Globe method)</a>
 </li>
-      <li><a href="modules/system/slurm.html#pyper.modules.system.slurm.Slurm._jobexec">_jobexec() (pyper.modules.system.slurm.Slurm method)</a>
+      <li><a href="modules/system/cluster.html#pyper.modules.system.cluster.Cluster._execute">_execute() (pyper.modules.system.cluster.Cluster method)</a>
 </li>
+      <li><a href="modules/system/cluster.html#pyper.modules.system.cluster.Cluster._finalize">_finalize() (pyper.modules.system.cluster.Cluster method)</a>
+</li>
+      <li><a href="modules/system/cluster.html#pyper.modules.system.cluster.Cluster._jobexec">_jobexec() (pyper.modules.system.cluster.Cluster method)</a>
+
+      <ul>
+        <li><a href="modules/system/lsf.html#pyper.modules.system.lsf.LSF._jobexec">(pyper.modules.system.lsf.LSF method)</a>
+</li>
+        <li><a href="modules/system/slurm.html#pyper.modules.system.slurm.Slurm._jobexec">(pyper.modules.system.slurm.Slurm method)</a>
+</li>
+      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="modules/system/slurm.html#pyper.modules.system.slurm.Slurm._jobscript">_jobscript() (pyper.modules.system.slurm.Slurm method)</a>
+      <li><a href="modules/system/cluster.html#pyper.modules.system.cluster.Cluster._jobscript">_jobscript() (pyper.modules.system.cluster.Cluster method)</a>
+
+      <ul>
+        <li><a href="modules/system/lsf.html#pyper.modules.system.lsf.LSF._jobscript">(pyper.modules.system.lsf.LSF method)</a>
 </li>
-      <li><a href="modules/system/slurm.html#pyper.modules.system.slurm.Slurm._mpiexec">_mpiexec() (pyper.modules.system.slurm.Slurm method)</a>
+        <li><a href="modules/system/slurm.html#pyper.modules.system.slurm.Slurm._jobscript">(pyper.modules.system.slurm.Slurm method)</a>
 </li>
+      </ul></li>
+      <li><a href="modules/solver/specfem3d_globe.html#pyper.modules.solver.specfem3d_globe.Specfem3D_Globe._mesh">_mesh() (pyper.modules.solver.specfem3d_globe.Specfem3D_Globe method)</a>
+</li>
+      <li><a href="modules/system/cluster.html#pyper.modules.system.cluster.Cluster._mpiexec">_mpiexec() (pyper.modules.system.cluster.Cluster method)</a>
+
+      <ul>
+        <li><a href="modules/system/lsf.html#pyper.modules.system.lsf.LSF._mpiexec">(pyper.modules.system.lsf.LSF method)</a>
+</li>
+        <li><a href="modules/system/slurm.html#pyper.modules.system.slurm.Slurm._mpiexec">(pyper.modules.system.slurm.Slurm method)</a>
+</li>
+      </ul></li>
       <li><a href="modules/solver/specfem3d_globe.html#pyper.modules.solver.specfem3d_globe.Specfem3D_Globe._setpar">_setpar() (pyper.modules.solver.specfem3d_globe.Specfem3D_Globe method)</a>
 </li>
   </ul></td>
@@ -182,10 +209,16 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="modules/system/contents.html#pyper.modules.system.system.System.add_stage">add_stage() (pyper.modules.system.system.System method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="modules/system/contents.html#pyper.modules.system.system.System.add_task">add_task() (pyper.modules.system.system.System method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules/solver/contents.html#pyper.modules.solver.solver.Solver.adjoint">adjoint() (pyper.modules.solver.solver.Solver method)</a>
+
+      <ul>
+        <li><a href="modules/solver/specfem3d_globe.html#pyper.modules.solver.specfem3d_globe.Specfem3D_Globe.adjoint">(pyper.modules.solver.specfem3d_globe.Specfem3D_Globe method)</a>
+</li>
+      </ul></li>
   </ul></td>
 </tr></table>
 
@@ -193,6 +226,38 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="modules/system/cluster.html#pyper.modules.system.cluster.Cluster">Cluster (class in pyper.modules.system.cluster)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="E">E</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules/solver/contents.html#pyper.modules.solver.solver.Solver.export_kernel">export_kernel() (pyper.modules.solver.solver.Solver method)</a>
+
+      <ul>
+        <li><a href="modules/solver/specfem3d_globe.html#pyper.modules.solver.specfem3d_globe.Specfem3D_Globe.export_kernel">(pyper.modules.solver.specfem3d_globe.Specfem3D_Globe method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="F">F</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules/solver/contents.html#pyper.modules.solver.solver.Solver.forward">forward() (pyper.modules.solver.solver.Solver method)</a>
+
+      <ul>
+        <li><a href="modules/solver/specfem3d_globe.html#pyper.modules.solver.specfem3d_globe.Specfem3D_Globe.forward">(pyper.modules.solver.specfem3d_globe.Specfem3D_Globe method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="L">L</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules/system/lsf.html#pyper.modules.system.lsf.LSF">LSF (class in pyper.modules.system.lsf)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -252,10 +317,10 @@
         <li><a href="modules/system/contents.html#pyper.modules.system.system.System.setup">(pyper.modules.system.system.System method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="modules/system/slurm.html#pyper.modules.system.slurm.Slurm">Slurm (class in pyper.modules.system.slurm)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="modules/solver/contents.html#pyper.modules.solver.solver.Solver">Solver (class in pyper.modules.solver.solver)</a>
 </li>
       <li><a href="modules/solver/specfem3d_globe.html#pyper.modules.solver.specfem3d_globe.Specfem3D_Globe">Specfem3D_Globe (class in pyper.modules.solver.specfem3d_globe)</a>
@@ -264,6 +329,12 @@
 
       <ul>
         <li><a href="modules/system/contents.html#pyper.modules.system.system.System.submit">(pyper.modules.system.system.System method)</a>
+</li>
+      </ul></li>
+      <li><a href="modules/solver/contents.html#pyper.modules.solver.solver.Solver.sum_kernels">sum_kernels() (pyper.modules.solver.solver.Solver method)</a>
+
+      <ul>
+        <li><a href="modules/solver/specfem3d_globe.html#pyper.modules.solver.specfem3d_globe.Specfem3D_Globe.sum_kernels">(pyper.modules.solver.specfem3d_globe.Specfem3D_Globe method)</a>
 </li>
       </ul></li>
       <li><a href="modules/system/contents.html#pyper.modules.system.system.System">System (class in pyper.modules.system.system)</a>

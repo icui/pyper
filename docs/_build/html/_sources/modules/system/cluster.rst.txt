@@ -9,3 +9,4 @@ Cluster-based system
    
 .. automodule:: pyper.modules.system.cluster
     :members:
+    :private-members:

@@ -15,13 +15,12 @@
 		]
 	},
 	"solver": {
-		"module": "specfem3d_globe",
+		"module": "Specfem3D_Globe",
 		"path": "/home/ccui/specfem3d_globe",
 		"duration": 120.0,
 		"components": ["N", "E", "Z"],
 		"vtk_quality": 1,
-		"ntasks": 6,
-		"adios": false
+		"ntasks": 6
 	},
 	"kernel": {
 		"module": "ortho2",
@@ -32,5 +31,13 @@
 		"integrate_duration": 320,
 		"period_min": 90.0,
 		"period_max": 200.0
+	},
+	"utils": {
+		"dsp": "cupy",
+		"trace": "asdf",
+		"model": "adios",
+		"misfit": "phase",
+		"preprocess": "bandpass",
+		"postprocess": "sum"
 	}
 }

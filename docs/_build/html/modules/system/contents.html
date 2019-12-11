@@ -88,6 +88,7 @@
 <li class="toctree-l3"><a class="reference internal" href="entk.html">EnTK-based system</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../solver/contents.html">Solver</a></li>
 </ul>
 </li>
 </ul>
@@ -195,7 +196,7 @@
 
 <dl class="method">
 <dt id="pyper.modules.system.system.System.mpirun">
-<code class="sig-name descname">mpirun</code><span class="sig-paren">(</span><em class="sig-param">tasks: Union[List[Tuple[str, str, int]], Tuple[str, str, int]]</em><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#pyper.modules.system.system.System.mpirun" title="Permalink to this definition">¶</a></dt>
+<em class="property">abstract </em><code class="sig-name descname">mpirun</code><span class="sig-paren">(</span><em class="sig-param">tasks: Union[List[Tuple[str, str, int]], Tuple[str, str, int]]</em><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#pyper.modules.system.system.System.mpirun" title="Permalink to this definition">¶</a></dt>
 <dd><p>Run mpi tasks.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -203,9 +204,6 @@
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>int – exit code of the system call</p>
-</dd>
-<dt class="field-odd">Raises</dt>
-<dd class="field-odd"><p><strong>NotImplementedError</strong> – abstract method defined by child class</p>
 </dd>
 </dl>
 </dd></dl>
@@ -235,14 +233,11 @@
 
 <dl class="method">
 <dt id="pyper.modules.system.system.System.submit">
-<code class="sig-name descname">submit</code><span class="sig-paren">(</span><em class="sig-param">workflow: Callable</em><span class="sig-paren">)</span><a class="headerlink" href="#pyper.modules.system.system.System.submit" title="Permalink to this definition">¶</a></dt>
+<em class="property">abstract </em><code class="sig-name descname">submit</code><span class="sig-paren">(</span><em class="sig-param">workflow: Callable</em><span class="sig-paren">)</span><a class="headerlink" href="#pyper.modules.system.system.System.submit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Submit a job script.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>{Callable} -- tasks to be executed in the job script</strong> (<em>workflow</em>) – </p>
-</dd>
-<dt class="field-even">Raises</dt>
-<dd class="field-even"><p><strong>NotImplementedError</strong> – abstract method defined by child class</p>
 </dd>
 </dl>
 </dd></dl>

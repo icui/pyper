@@ -27,7 +27,7 @@ def call(cmd: str):
 		cmd {str} -- shell command
 	
 	Returns:
-		[type] -- return value of shell command
+		int -- return value of shell command
 	"""
 	return check_call(cmd, shell=True)
 
@@ -38,9 +38,16 @@ def abspath(src: str):
 		src {str} -- relative path
 	
 	Returns:
-		[type] -- absolute path
+		str -- absolute path
 	"""
-	return src if src.startswith('/') else path.join(cwd, src)
+	if src.startswith('/'):
+		return src
+	
+	elif src.startswith('~'):
+		return path.expanduser(src)
+
+	else:
+		return path.join(cwd, src)
 
 def exists(src: str):
 	""" Check whether a file or directory exists.
@@ -49,7 +56,7 @@ def exists(src: str):
 		src {str} -- file or directory path
 	
 	Returns:
-		[type] -- whether file or directory exists
+		str -- whether file or directory exists
 	"""
 	return path.exists(abspath(src))
 
