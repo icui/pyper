@@ -22,7 +22,7 @@ def _test_tasks(target: Block):
     # name is an optional argument which is displayed in output/output.log
     target.add(Task(
         cmd=test,
-        name='task_with_name',
+        name='serial_task',
         args=(next(_counter),)
     ))
 
@@ -33,6 +33,7 @@ def _test_tasks(target: Block):
     # specify gpus_per_rank (which should be 0 or 1 in most cases) to use GPU
     target.add(Task(
         cmd=test,
+        name='parallel_task_with_unified_arguments',
         args=(next(_counter),),
         nranks=3,
         gpus_per_rank=1
@@ -40,6 +41,7 @@ def _test_tasks(target: Block):
 
     target.add(Task(
         cmd=test,
+        name='parallel_task_with_rank_specific_arguments',
         args=[(next(_counter),), (next(_counter),), (next(_counter),)],
         nranks=3
     ))
@@ -47,6 +49,7 @@ def _test_tasks(target: Block):
     # add a serial task to execute a shell command
     target.add(Task(
         cmd='sh _test.sh',
+        name='serial_shell_task',
         args=(next(_counter),)
     ))
 
@@ -62,6 +65,7 @@ def _test_tasks(target: Block):
     # add a parallel GPU task to execute a shell command
     target.add(Task(
         cmd=f'sh _test.sh',
+        name='parallel_shell_task_with_gpu',
         args=(next(_counter),),
         nranks=2,
         gpus_per_rank=1
@@ -71,11 +75,11 @@ def _test_tasks(target: Block):
 def _test_blocks(target: Block, add_blocks=False):
     """Demonstrates how to add blocks."""
     # create a block that runs child tasks / blocks in serial
-    child1 = Block(name='block_with_name')
+    child1 = Block(name='serial_block')
     target.add(child1)
 
     # create a block that runs child tasks / blocks in parallel
-    child2 = Block(parallel=True)
+    child2 = Block(parallel=True, name='parallel_block')
     target.add(child2)
 
     # add tasks to child block
