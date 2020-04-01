@@ -55,6 +55,7 @@ def _test_tasks(target: Block):
     target.add(Task(
         cmd='sh _test2.sh',
         cwd='test_dir',
+        name='task_in_different_dir',
         args=(next(_counter),), nranks=2
     ))
 
