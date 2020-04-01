@@ -26,18 +26,18 @@ def test_tasks(target: Block):
     # for parallel tasks, arguments passed to function may have type list or type tuple
     # if args is tuple, then the same args is used across all ranks
     # if args is list, then it should have a length equal to nranks, each element should be a tuple
-    target.add(Task(cmd=test, args=(next(counter),), nranks=3))
+    # specify gpus_per_rank (which should be 1 in most cases) to use GPU
+    target.add(Task(cmd=test, args=(next(counter),), nranks=3, gpus_per_rank=1))
     target.add(Task(cmd=test, args=[(next(counter),), (next(counter),), (next(counter),)], nranks=3))
 
     # add a serial task to execute a shell command
-    target.add(Task(cmd=f'sh _test.sh {next(counter)}'))
+    target.add(Task(cmd=f'sh _test.sh', args=(next(counter),)))
 
     # add a parallel task to execute a shell command
-    target.add(Task(cmd=f'sh _test.sh {next(counter),}', nranks=2))
+    target.add(Task(cmd=f'sh _test.sh', args=(next(counter),), nranks=2))
 
     # add a parallel GPU task to execute a shell command
-    # specify gpus_per_rank (which should be 1 in most cases) to use GPU
-    target.add(Task(cmd=f'sh _test.sh {next(counter)}', nranks=2, gpus_per_rank=1))
+    target.add(Task(cmd=f'sh _test.sh', args=[(next(counter),), (next(counter),), (next(counter),)], nranks=2, gpus_per_rank=1))
 
 
 def test_blocks(target: Block, add_blocks=False):
