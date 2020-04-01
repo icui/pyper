@@ -1,6 +1,8 @@
 *.pyc
 *.swp
 .vscode
+.mypy_cache
+.DS_Store
 
 examples/*/output
 examples/*/scratch
