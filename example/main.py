@@ -22,7 +22,7 @@ def _test_tasks(target: Block):
     target.add(Task(cmd=test, args=(next(_counter),)))
 
     # add a parallel task to call a function
-    # for parallel tasks, arguments passed to function may have type list or type tuple
+    # for parallel tasks, args may have type list or tuple
     # if args is tuple, then the same args is used across all ranks
     # if args is list, then it should have a length equal to nranks, each element should be a tuple
     # specify gpus_per_rank (which should be 0 or 1 in most cases) to use GPU
