@@ -40,7 +40,7 @@ def _test_tasks(target: Block):
 
     target.add(Task(
         cmd=test,
-        args=[(next(_counter),), (next(_counter),), (next(_counter),)],
+        args=[(next(_counter),), (next(_counter),), (next(_counter),), (next(_counter),)],
         nranks=4
     ))
 
