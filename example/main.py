@@ -51,8 +51,10 @@ def _test_tasks(target: Block):
     ))
 
     # add a parallel task to execute a shell command
+    # use cwd argument to switch to a specific directory
     target.add(Task(
-        cmd='sh _test.sh',
+        cmd='sh _test2.sh',
+        cwd='test_dir',
         args=(next(_counter),), nranks=2
     ))
 
