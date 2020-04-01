@@ -17,6 +17,7 @@ _counter = _counter_generator()
 def _test_tasks(target: Block):
     """Demonstrates how to add tasks."""
     # add a serial task to call a function
+    # note that task execution functions should be defined in a seperate file
     # for serial tasks, args (arguments passed to function) should have type tuple
     target.add(Task(cmd=test, args=(next(_counter),)))
 
