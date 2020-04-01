@@ -13,7 +13,6 @@ if __name__ == '__main__':
     if isinstance(args, list):
         # assign unique arguments for each task
         from mpi4py import MPI
-        print(args, MPI.COMM_WORLD.Get_rank())
         args = args[MPI.COMM_WORLD.Get_rank()]
     
     try:
