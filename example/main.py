@@ -41,9 +41,8 @@ def _test_tasks(target: Block):
     target.add(Task(
         cmd=test,
         args=[(next(_counter),), (next(_counter),), (next(_counter),)],
-        nranks=3
+        nranks=4
     ))
-    print('???', next(_counter))
 
     # add a serial task to execute a shell command
     target.add(Task(
