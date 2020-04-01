@@ -19,16 +19,21 @@ counter = counter_generator()
 def test_tasks(target: Block):
     """Demonstrates how to add tasks."""
     # add a serial task to call a function
-    target.add(Task(cmd=test, args=[next(counter)]))
+    # for serial tasks, args (arguments passed to function) should have type tuple
+    target.add(Task(cmd=test, args=(next(counter),)))
 
     # add a parallel task to call a function
-    target.add(Task(cmd=test, args=[next(counter)], nranks=3))
+    # for parallel tasks, arguments passed to function may have type list or type tuple
+    # if args is tuple, then the same args is used across all ranks
+    # if args is list, then it should have a length equal to nranks, each element should be a tuple
+    target.add(Task(cmd=test, args=(next(counter),), nranks=3))
+    target.add(Task(cmd=test, args=[(next(counter),), (next(counter),), (next(counter),)], nranks=3))
 
     # add a serial task to execute a shell command
     target.add(Task(cmd=f'./_test.sh {next(counter)}'))
 
     # add a parallel task to execute a shell command
-    target.add(Task(cmd=f'./_test.sh {next(counter)}', nranks=2))
+    target.add(Task(cmd=f'./_test.sh {next(counter),}', nranks=2))
 
     # add a parallel GPU task to execute a shell command
     # specify gpus_per_rank (which should be 1 in most cases) to use GPU
