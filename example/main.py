@@ -26,7 +26,7 @@ def _test_tasks(target: Block):
     # for parallel tasks, arguments passed to function may have type list or type tuple
     # if args is tuple, then the same args is used across all ranks
     # if args is list, then it should have a length equal to nranks, each element should be a tuple
-    # specify gpus_per_rank (which should be 1 in most cases) to use GPU
+    # specify gpus_per_rank (which should be 0 or 1 in most cases) to use GPU
     target.add(Task(cmd=test, args=(next(_counter),), nranks=3, gpus_per_rank=1))
     target.add(Task(cmd=test, args=[(next(_counter),), (next(_counter),), (next(_counter),)], nranks=3))
 
