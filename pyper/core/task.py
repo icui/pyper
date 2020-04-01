@@ -188,8 +188,11 @@ class TaskRunner:
 
         if task.args is not None:
             if isinstance(task.args, list):
-                if not self.mpi or self.mpi[0] != len(task.args) or not callable(self.cmd):
+                if not self.mpi or not callable(self.cmd):
                     raise RuntimeError(f'List type arguments can only be passed to MPI tasks {task}.')
+                
+                if self.mpi[0] != len(task.args):
+                    raise RuntimeError('Length of arguments must equal to the number of MPI tasks.')
                 
                 for arg in task.args:
                     if not isinstance(arg, tuple):
