@@ -68,3 +68,4 @@ if __name__ == '__main__':
 
     # submit to job scheduler
     submit(main)
+    print('Check output/output.log to monitor job status.')
