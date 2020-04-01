@@ -180,6 +180,9 @@ class TaskRunner:
     
     def _fill_cmd(self, task: Task):
         """Fill and check command."""
+        if task.cwd and callable(task.cmd):
+            raise RuntimeError('`cwd` argument is only available to tasks that call shell commands.')
+
         self.cmd = task.cmd
         self.cwd = task.cwd
 
