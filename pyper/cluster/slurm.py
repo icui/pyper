@@ -19,7 +19,8 @@ def header(job: Job):
     if job.gpus_per_node:
         lines.append('#SBATCH --gres=gpu:%d' % job.gpus_per_node)
 
-    if mem := config.get('job', 'mem'):
+    mem = config.get('job', 'mem')
+    if mem:
         lines.append('#SBATCH --mem=%s' % mem)
 
     return lines

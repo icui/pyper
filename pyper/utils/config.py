@@ -49,7 +49,8 @@ class Config:
             Any: entry value
         """
         # return value in config.json if exists
-        if (val := self.get(section, key)) is not None:
+        val = self.get(section, key)
+        if val is not None:
             return val
 
         # get path to the entry
@@ -72,7 +73,8 @@ class Config:
         if isinstance(cast, list):
             # return list entry
             try:
-                if (index := int(val) - 1) < 0:
+                index = int(val) - 1
+                if index < 0:
                     raise ValueError
 
                 val = cast[index]

@@ -54,8 +54,8 @@ class Workflow:
             
             elif end_time is None:
                 log += 'running'
-
-                if dt := int(round(time() - start_time)):
+                dt = int(round(time() - start_time))
+                if dt:
                     log += ' (' + str(timedelta(seconds=dt)) + ')'
                 
                 log += '\n'
@@ -65,8 +65,8 @@ class Workflow:
             
             else:
                 log += 'done'
-
-                if dt := int(round(end_time - start_time)):
+                dt = int(round(end_time - start_time))
+                if dt:
                     log += ' (' + str(timedelta(seconds=dt)) + ')'
                 
                 log += '\n'

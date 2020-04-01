@@ -1,7 +1,5 @@
 #!/usr/bin/env python
 
-from typing import cast
-
 from pyper import Task, Block, submit
 from _test import test
 
@@ -42,11 +40,13 @@ def _test_tasks(target: Block):
 
 def _test_blocks(target: Block, add_blocks=False):
     """Demonstrates how to add blocks."""
-    # create a serial child block
-    child1 = cast(Block, target.add(Block()))
+    # create a block that runs child tasks / blocks in serial
+    child1 = Block()
+    target.add(child1)
 
-    # create a parallel child block
-    child2 = cast(Block, target.add(Block(parallel=True)))
+    # create a block that runs child tasks / blocks in parallel
+    child2 = Block(parallel=True)
+    target.add(child2)
 
     # add tasks to child block
     _test_tasks(child1)

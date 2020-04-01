@@ -31,12 +31,14 @@ def submit(main: Union[Task, Block], **kwargs):
     # write job script
     script = '\n'.join(cluster.header(job))
 
-    if pre_exec := config.get('job', 'pre_exec'):
+    pre_exec = config.get('job', 'pre_exec')
+    if pre_exec:
         script += '\n%s\n' % '\n'.join(pre_exec)
 
     script += f'\npython -m "pyper.core.main"\n'
 
-    if post_exec := config.get('job', 'post_exec'):
+    post_exec = config.get('job', 'post_exec')
+    if post_exec:
         script += '\n%s\n' % '\n'.join(post_exec)
 
     # save job script

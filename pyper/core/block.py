@@ -86,8 +86,10 @@ class BlockRunner:
         start_time = self.start_time
         end_time = self.end_time
 
-        if start_time and end_time and (dt := int(round(end_time - start_time))):
-            block_str += ' (' + str(timedelta(seconds=dt)) + ')'
+        if start_time and end_time:
+            dt = int(round(end_time - start_time))
+            if dt:
+                block_str += ' (' + str(timedelta(seconds=dt)) + ')'
 
         for i in range(len(self.entries)):
             # log string of child entry

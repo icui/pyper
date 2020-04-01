@@ -81,8 +81,9 @@ class TaskRunner:
             else:
                 # add elapsed time to finished task
                 task_str += ' done'
-
-                if dt := int(round(self.end_time - cast(float, self.start_time))):
+                dt = int(round(self.end_time - cast(float, self.start_time)))
+                
+                if dt:
                     task_str += f' ({str(timedelta(seconds=dt))})'
         
         elif self.start_time is not None:
