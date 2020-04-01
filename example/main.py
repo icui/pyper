@@ -3,7 +3,6 @@
 from pyper import Task, Block, submit
 from _test import test
 
-# counter of tasks
 def _counter_generator():
     """Count the number of added tasks."""
     num = 0
@@ -12,6 +11,7 @@ def _counter_generator():
         num += 1
         yield num
 
+# counter of tasks
 _counter = _counter_generator()
 
 def _test_tasks(target: Block):
