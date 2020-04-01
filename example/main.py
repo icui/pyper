@@ -37,7 +37,7 @@ def test_tasks(target: Block):
     target.add(Task(cmd=f'sh _test.sh', args=(next(counter),), nranks=2))
 
     # add a parallel GPU task to execute a shell command
-    target.add(Task(cmd=f'sh _test.sh', args=[(next(counter),), (next(counter),), (next(counter),)], nranks=2, gpus_per_rank=1))
+    target.add(Task(cmd=f'sh _test.sh', args=(next(counter),), nranks=2, gpus_per_rank=1))
 
 
 def test_blocks(target: Block, add_blocks=False):
