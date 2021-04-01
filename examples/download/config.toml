@@ -1,0 +1,3 @@
+[job]
+name = "download"
+main = ["pypers.fwi.download", "download_catalog"]

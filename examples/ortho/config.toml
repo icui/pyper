@@ -1,0 +1,47 @@
+[job]
+cluster = "summit"
+name = "ortho"
+nnodes = 16
+account = "GEO111"
+walltime = 120.0
+main = ["pypers.kernel", "create_kernel"]
+
+[walltime]
+mesher = 5.0
+solver_forward = 10.0
+solver_adjoint = 20.0
+process_traces = 5.0
+process_adios = 1.0
+compute_misfit = 10.0
+smooth_kernels = 5.0
+encode_observed = 5.0
+
+[path]
+specfem = "/gpfs/alpine/scratch/ccui/geo111/sf-2"
+catalog = "../catalogs/ortho"
+adios = "/gpfs/alpine/scratch/ccui/geo111/wjbp"
+model_init = "/gpfs/alpine/proj-shared/geo111/ccui/models/m00_128.bp"
+model_true = "/gpfs/alpine/proj-shared/geo111/ccui/models/m25_128.bp"
+
+[module]
+solver = "specfem3d_globe"
+kernel = "ortho"
+misfit = "ortho"
+
+[workspace]
+dt = 0.14
+duration = 220.0
+transient_duration = 100.0
+test_encoding = 0
+lddrk = false
+
+period_range = [40.0, 90.0]
+normalize_source = true
+taper = 5.0
+
+smooth_kernels = 150.0
+smooth_hessian = 400.0
+precond_kernels = 0.9
+
+phase_factor = 1.0
+amplitude_factor = 0.0

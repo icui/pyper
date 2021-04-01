@@ -1,0 +1,63 @@
+[job]
+cluster = "summit"
+name = "greenland"
+nnodes = 16
+account = "GEO111"
+walltime = 120.0
+main = ["pypers.optimizer", "create_optimizer"]
+# main = ["pypers.kernel", "create_kernel"]
+requeue = true
+
+[walltime]
+mesher = 5.0
+solver_forward = 15.0
+solver_adjoint = 30.0
+process_adios = 1.0
+compute_misfit = 10.0
+smooth_kernels = 15.0
+process_traces = 10.0
+encode_observed = 15.0
+compute_weightings = 10.0
+
+[path]
+specfem = "/gpfs/alpine/scratch/ccui/geo111/sf-2"
+catalog = "/gpfs/alpine/scratch/ccui/geo111/dataset/master_syn"
+adios = "/gpfs/alpine/scratch/ccui/geo111/wjbp-kl"
+model_init = "/gpfs/alpine/proj-shared/geo111/ccui/models/m00_128.bp"
+model_true = "/gpfs/alpine/proj-shared/geo111/ccui/models/m25_128.bp"
+
+[module]
+solver = "specfem3d_globe"
+kernel = "ortho"
+misfit = "ortho"
+optimizer = "gd"
+search = "bracket"
+
+[workspace]
+dt = 0.14
+duration = 300.0
+transient_duration = 60.0
+test_encoding = 0
+lddrk = false
+
+period_range = [40.0, 90.0]
+normalize_source = true
+compensate_attenuation = 0
+taper = 5.0
+event_weighting = 0.33
+station_weighting = 0.05
+randomize_frequency = 1
+seed = 0
+
+smooth_kernels = [200.0, 120.0, 0.95]
+smooth_hessian = [200.0, 120.0, 0.95]
+precondition = 500.0
+
+phase_factor = 1.0
+amplitude_factor = 0.0
+double_difference = false
+
+niters = 1
+nsteps = 5
+step_init = 0.01
+mem = 5

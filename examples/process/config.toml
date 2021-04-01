@@ -1,0 +1,21 @@
+[job]
+cluster = "summit"
+name = "catalog"
+nnodes = 1
+account = "GEO111"
+walltime = 120.0
+main = ["pypers.fwi", "process_catalog"]
+
+[walltime]
+process_traces = 10.0
+
+[path]
+src = "../raw_obs"
+dst = "../proc_obs"
+
+[workspace]
+dt = 0.16
+taper = 5.0
+duration = 120.0
+margin = 10.0
+observed = true

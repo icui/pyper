@@ -1,0 +1,52 @@
+[job]
+cluster = "summit"
+name = "greenland"
+nnodes = 16
+account = "GEO111"
+walltime = 120.0
+main = "kernel"
+
+[walltime]
+mesher = 5.0
+forward = 10.0
+adjoint = 20.0
+smooth = 5.0
+fft = 5.0
+misfit = 10.0
+adios = 1.0
+
+[path]
+specfem = "/gpfs/alpine/scratch/ccui/geo111/sf"
+catalog = "../catalogs/greenland"
+adios = "/gpfs/alpine/scratch/ccui/geo111/wjbp"
+model_init = "/gpfs/alpine/proj-shared/geo111/ccui/models/m00_128.bp"
+model_true = "/gpfs/alpine/proj-shared/geo111/ccui/models/m25_128.bp"
+
+[module]
+solver = "specfem3d_globe"
+kernel = "ortho"
+misfit = "ortho"
+optimizer = "lbfgs"
+search = "bracket"
+
+[workspace]
+dt = 0.14
+duration = 300.0
+transient_duration = 60.0
+
+period_range = [40.0, 90.0]
+test_encoding = 0
+normalize_source = true
+
+smooth_kernels = 150.0
+smooth_hessian = 400.0
+precond_kernels = 0.9
+
+phase = 1.0
+amplitude = 0.0
+taper = 5.0
+
+niters = 10
+nsteps = 10
+step_init = 0.01
+mem = 5
