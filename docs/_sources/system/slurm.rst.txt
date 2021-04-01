@@ -1,6 +1,0 @@
-Slurm-based system
-=================================
-
-.. automodule:: pyper.modules.system.slurm
-    :members:
-    :private-members:

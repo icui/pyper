@@ -1,8 +1,0 @@
-Quick start
-=================================
-
-.. toctree::
-   :maxdepth: 2
-   
-   requirements.rst
-   installation.rst
